@@ -1,9 +1,9 @@
 cff-version: 1.2.0
 message: "If you use this software, please cite the paper below."
-title: "T-GLVQ (TensorFlow): transfer-learning GLVQ via null-space evaluation"
+title: "T-GMLVQ (PyTorch): null-space transfer classification learning"
 abstract: >-
-  TensorFlow/Keras (protoflow) implementation of a Generalized Matrix LVQ architecture for transfer
-  learning across multiple sources using null-space evaluation.
+  PyTorch reimplementation of Transfer-GMLVQ (T-GMLVQ), a siamese-like GMLVQ for classification
+  from multiple sources using null-space evaluation of a shared sub-orthogonal mapping.
 type: software
 authors:
   - family-names: Staps
@@ -12,7 +12,7 @@ authors:
   - family-names: Villmann
     given-names: Thomas
     orcid: "https://orcid.org/0000-0001-6725-0141"
-repository-code: "https://github.com/danielstaps/TransferGLVQ-tensorflow"
+repository-code: "https://github.com/danielstaps/TransferGLVQ"
 license: MIT
 year: 2022
 keywords:

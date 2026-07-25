@@ -1,6 +1,6 @@
-# T-GLVQ (TensorFlow) — Transfer Learning GLVQ via null-space evaluation
+# T-GMLVQ (PyTorch) — null-space transfer classification learning
 
-`protoflow` implementation of the transfer-learning LVQ architecture from:
+A clean **PyTorch** reimplementation of Transfer-GMLVQ (T-GMLVQ) from:
 
 > T. Villmann, D. Staps, J. Ravichandran, S. Saralajew, M. Biehl, M. Kaden,
 > **"A Learning Vector Quantization Architecture for Transfer Learning Based Classification in
@@ -8,39 +8,52 @@
 > *Advances in Intelligent Data Analysis XX (IDA 2022)*, Springer LNCS 13205, 2022, pp. 354–364.
 > DOI: [10.1007/978-3-031-01333-1_28](https://doi.org/10.1007/978-3-031-01333-1_28)
 
-## What this is
+The `main` branch is the modernized **PyTorch** port. The original **TensorFlow** implementation
+lives on the [`tensorflow`](https://github.com/danielstaps/TransferGLVQ/tree/tensorflow) branch, and
+the exact **as-published** paper state (TensorFlow) on the `published` branch and tag `v-paper-2022a`.
 
-A Generalized Matrix LVQ (GMLVQ) architecture that learns a classifier from **several, possibly
-non-calibrated sources without explicit transfer learning**. It uses a **siamese-like GMLVQ setup**
-with two prototype sets sharing one linear map: one set drives the **target classification**, the
-other learns to **separate the sources**. Projecting the data into the **null-space of the learned
-source-separation mapping** levels out the source differences, and classification is learned in that
-null-space — *null-space transfer classification learning* (**T-GMLVQ**). The result is an
-interpretable, prototype-based classifier. Implemented in TensorFlow/Keras as the `protoflow`
-package.
+## Method
 
-## Install & run
+Classify data from several **sources** correctly, independent of the source domain. A siamese-like
+GMLVQ shares one sub-orthogonal mapping `Ω ∈ ℝ^{m×n}` (m < n, `ΩΩᵀ = Iₘ`) between two prototype sets:
+
+```
+source prototypes ω_j :  d_Ω(x, ω) = ‖ Ω (x − ω) ‖²          # separate sources in ℝ^m   (eq. 1)
+class  prototypes w_k :  δ_Ω(x, w) = ‖ Q (x − w) ‖²,  Q = Iₙ − ΩᵀΩ   # classify in Ω's null-space (eq. 2)
+```
+
+Both use the GLVQ classifier `μ = (d⁺ − d⁻)/(d⁺ + d⁻)`; the loss combines them,
+`E = Σ α·f(ν_source) + (1−α)·f(μ_class)` (eq. 5). `α` is annealed 1→0: Ω first learns to separate
+sources, then class discrimination sharpens in the null-space where source differences are levelled.
+
+Implemented in **plain torch** (no prototorch dependency): T-GMLVQ needs two prototype sets and the
+null-space distance, which don't map onto prototorch's single-set GMLVQ.
+
+## Run
 
 ```bash
 pip install -r requirements.txt
-python3 -m examples.bonbons        # example training script
+python demo.py --epochs 400
 ```
 
-Original dependencies (per the paper-time README): keras ≥ 2.9.0, tensorflow ≥ 2.9.1,
-numpy ≥ 1.23.1, matplotlib ≥ 3.5.2.
+The synthetic multi-source demo prints, e.g.:
 
-## Branches (repo-cleanup convention)
+```
+class accuracy (null-space) : 0.999      # T-GMLVQ classifies across sources
+source accuracy (Omega space): 1.000     # Ω separates the sources
+naive class acc (raw space)  : 0.502     # naive classifier ≈ chance (domain shift)
+||Omega Omega^T - I||_max    : 1.2e-07   # Ω stays sub-orthogonal
+```
 
-| Branch / tag | Meaning |
+The gap between the naive baseline (≈ chance) and the null-space accuracy (≈ 1.0) is the transfer
+effect the paper describes. Full paper reproduction uses the authors' multi-source datasets.
+
+## Files
+
+| File | Purpose |
 |---|---|
-| `published` / `v-paper-2022a` | frozen as-published snapshot (earliest available git state of the model; see note) |
-| `main` | maintained/cleaned state |
-
-**Provenance note:** the model code exists in git only as an August-2022 snapshot (post-conference
-upload); no commit at the IDA 2022 submission deadline (2021-11-19) survives for the model itself.
-The **experiment** code with full deadline-time history lives in
-[`T-GLVQ_experiments_paper`](https://github.com/danielstaps/T-GLVQ_experiments_paper)
-(`v-paper-2022a` there points at the last pre-deadline commit).
+| `transfer_gmlvq.py` | `TransferGMLVQ` model, GLVQ loss, orthogonalization, prediction |
+| `demo.py` | synthetic multi-source example + evaluation |
 
 ## How to cite
 
@@ -48,10 +61,9 @@ See [`CITATION.cff`](CITATION.cff) and cite the paper above.
 
 ## Acknowledgment
 
-By **Daniel Staps** ([0009-0002-4459-4544](https://orcid.org/0009-0002-4459-4544)),
-J. Ravichandran, S. Saralajew, M. Biehl, M. Kaden and **Thomas Villmann**
-([0000-0001-6725-0141](https://orcid.org/0000-0001-6725-0141)). Repository cleanup with assistance
-from Claude (Anthropic).
+Port by **Daniel Staps** ([0009-0002-4459-4544](https://orcid.org/0009-0002-4459-4544)); method by
+T. Villmann, D. Staps, J. Ravichandran, S. Saralajew, M. Biehl, M. Kaden. PyTorch port carried out
+with assistance from Claude (Anthropic).
 
 ## License
 

@@ -1,6 +1,7 @@
 .git
 __pycache__/
 *.pyc
-*.swp
 .venv/
-venv_tf/
+venv/
+*.pt
+*.ckpt
