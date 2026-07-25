@@ -1,5 +1,10 @@
 # Canonical pre-commit config for danielstaps research repos.
 # Copy into a repo as `.pre-commit-config.yaml`, then:  pre-commit install
+
+# Skip legacy / vendored / experiment-dump paths (mirrors ruff.toml excludes),
+# so the hooks don't churn code that isn't the maintained public API.
+exclude: '(^|/)([^/]*\.old|old|res_[^/]*|paper_[^/]*|ultimate_paper_[^/]*|SVDDPython|venv_tf|ida_2023_submission)(/|$)'
+
 repos:
   - repo: https://github.com/astral-sh/ruff-pre-commit
     rev: v0.8.4
