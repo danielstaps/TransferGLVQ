@@ -2,7 +2,7 @@
 
 `protoflow` implementation of the transfer-learning LVQ architecture from:
 
-> D. Staps, J. Ravichandran, S. Saralajew, M. Biehl, M. Kaden, T. Villmann,
+> T. Villmann, D. Staps, J. Ravichandran, S. Saralajew, M. Biehl, M. Kaden,
 > **"A Learning Vector Quantization Architecture for Transfer Learning Based Classification in
 > Case of Multiple Sources by Means of Null-Space Evaluation"**,
 > *Advances in Intelligent Data Analysis XX (IDA 2022)*, Springer LNCS 13205, 2022, pp. 354–364.
@@ -10,12 +10,14 @@
 
 ## What this is
 
-A Generalized Matrix LVQ (GMLVQ) architecture for **transfer learning across multiple sources**:
-knowledge from several source domains is combined and transferred to a target task, using a
-**null-space evaluation** of the learned relevance/mapping to decide which directions carry
-transferable class information and which should be suppressed. The result is an interpretable,
-prototype-based classifier that reuses multi-source structure. Implemented in TensorFlow/Keras as
-the `protoflow` package.
+A Generalized Matrix LVQ (GMLVQ) architecture that learns a classifier from **several, possibly
+non-calibrated sources without explicit transfer learning**. It uses a **siamese-like GMLVQ setup**
+with two prototype sets sharing one linear map: one set drives the **target classification**, the
+other learns to **separate the sources**. Projecting the data into the **null-space of the learned
+source-separation mapping** levels out the source differences, and classification is learned in that
+null-space — *null-space transfer classification learning* (**T-GMLVQ**). The result is an
+interpretable, prototype-based classifier. Implemented in TensorFlow/Keras as the `protoflow`
+package.
 
 ## Install & run
 

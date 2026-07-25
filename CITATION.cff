@@ -25,20 +25,24 @@ preferred-citation:
   type: conference-paper
   title: "A Learning Vector Quantization Architecture for Transfer Learning Based Classification in Case of Multiple Sources by Means of Null-Space Evaluation"
   authors:
+    - family-names: Villmann
+      given-names: Thomas
+      orcid: "https://orcid.org/0000-0001-6725-0141"
     - family-names: Staps
       given-names: Daniel
       orcid: "https://orcid.org/0009-0002-4459-4544"
     - family-names: Ravichandran
       given-names: Jensun
+      orcid: "https://orcid.org/0000-0002-9137-1418"
     - family-names: Saralajew
       given-names: Sascha
+      orcid: "https://orcid.org/0000-0003-2248-8062"
     - family-names: Biehl
       given-names: Michael
+      orcid: "https://orcid.org/0000-0001-5148-4568"
     - family-names: Kaden
       given-names: Marika
-    - family-names: Villmann
-      given-names: Thomas
-      orcid: "https://orcid.org/0000-0001-6725-0141"
+      orcid: "https://orcid.org/0000-0002-2849-3463"
   collection-title: "Advances in Intelligent Data Analysis XX (IDA 2022), LNCS 13205"
   publisher:
     name: "Springer"
