@@ -1,5 +1,8 @@
 # T-GMLVQ (PyTorch) — null-space transfer classification learning
 
+[![Paper](https://img.shields.io/badge/paper-IDA%202022-blue)](https://doi.org/10.1007/978-3-031-01333-1_28)
+<!-- After a Zenodo release, add the software DOI badge here: [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.XXXXXX.svg)](https://doi.org/10.5281/zenodo.XXXXXX) -->
+
 A clean **PyTorch** reimplementation of Transfer-GMLVQ (T-GMLVQ) from:
 
 > T. Villmann, D. Staps, J. Ravichandran, S. Saralajew, M. Biehl, M. Kaden,
@@ -58,6 +61,19 @@ effect the paper describes. Full paper reproduction uses the authors' multi-sour
 ## How to cite
 
 See [`CITATION.cff`](CITATION.cff) and cite the paper above.
+
+
+BibTeX:
+
+```bibtex
+@inproceedings{villmann2022transfergmlvq,
+  title     = {A Learning Vector Quantization Architecture for Transfer Learning Based Classification in Case of Multiple Sources by Means of Null-Space Evaluation},
+  author    = {Villmann, Thomas and Staps, Daniel and Ravichandran, Jensun and Saralajew, Sascha and Biehl, Michael and Kaden, Marika},
+  booktitle = {Advances in Intelligent Data Analysis XX (IDA 2022)},
+  series    = {LNCS}, volume = {13205}, pages = {354--364}, year = {2022},
+  publisher = {Springer}, doi = {10.1007/978-3-031-01333-1_28}
+}
+```
 
 ## Acknowledgment
 
