@@ -1,0 +1,48 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite the paper below."
+title: "T-GLVQ (TensorFlow): transfer-learning GLVQ via null-space evaluation"
+abstract: >-
+  TensorFlow/Keras (protoflow) implementation of a Generalized Matrix LVQ architecture for transfer
+  learning across multiple sources using null-space evaluation.
+type: software
+authors:
+  - family-names: Staps
+    given-names: Daniel
+    orcid: "https://orcid.org/0009-0002-4459-4544"
+  - family-names: Villmann
+    given-names: Thomas
+    orcid: "https://orcid.org/0000-0001-6725-0141"
+repository-code: "https://github.com/danielstaps/TransferGLVQ-tensorflow"
+license: MIT
+year: 2022
+keywords:
+  - learning vector quantization
+  - transfer learning
+  - GMLVQ
+  - null-space
+  - interpretability
+preferred-citation:
+  type: conference-paper
+  title: "A Learning Vector Quantization Architecture for Transfer Learning Based Classification in Case of Multiple Sources by Means of Null-Space Evaluation"
+  authors:
+    - family-names: Staps
+      given-names: Daniel
+      orcid: "https://orcid.org/0009-0002-4459-4544"
+    - family-names: Ravichandran
+      given-names: Jensun
+    - family-names: Saralajew
+      given-names: Sascha
+    - family-names: Biehl
+      given-names: Michael
+    - family-names: Kaden
+      given-names: Marika
+    - family-names: Villmann
+      given-names: Thomas
+      orcid: "https://orcid.org/0000-0001-6725-0141"
+  collection-title: "Advances in Intelligent Data Analysis XX (IDA 2022), LNCS 13205"
+  publisher:
+    name: "Springer"
+  year: 2022
+  start: 354
+  end: 364
+  doi: "10.1007/978-3-031-01333-1_28"
