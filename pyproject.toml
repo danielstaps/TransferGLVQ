@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "transfer_gmlvq"
+version = "1.0.0"
+description = "Transfer-GMLVQ — null-space transfer classification learning (PyTorch)"
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.9"
+dynamic = ["dependencies"]
+
+[tool.setuptools]
+py-modules = ["transfer_gmlvq", "demo"]
+
+[tool.setuptools.dynamic]
+dependencies = { file = ["requirements.txt"] }
