@@ -1,0 +1,20 @@
+# Canonical pre-commit config for danielstaps research repos.
+# Copy into a repo as `.pre-commit-config.yaml`, then:  pre-commit install
+repos:
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.8.4
+    hooks:
+      - id: ruff              # lint (with autofix)
+        args: [--fix]
+      - id: ruff-format       # format
+
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-toml
+      - id: check-merge-conflict
+      - id: check-added-large-files   # blocks committing venvs / big data dumps
+        args: [--maxkb=2048]

@@ -1,0 +1,33 @@
+# Canonical ruff configuration for danielstaps research repos.
+# Copy into a repo as `ruff.toml`, or merge into `[tool.ruff]` in pyproject.toml.
+
+line-length = 100
+target-version = "py39"
+
+# Keep legacy/vendored/experiment dumps out of linting.
+extend-exclude = [
+    "old",
+    "*.old",
+    "res_*",
+    "paper_*",
+    "ultimate_paper_*",
+    "SVDDPython",
+    "venv_tf",
+    "data",
+]
+
+[lint]
+# E/W: pycodestyle, F: pyflakes (unused imports/vars), I: isort,
+# UP: pyupgrade (modernize syntax), B: flake8-bugbear (likely bugs).
+select = ["E", "W", "F", "I", "UP", "B"]
+ignore = [
+    "E501",   # line length is handled by the formatter
+    "B008",   # function call in argument defaults (common in research code)
+    "UP031",  # %-formatting is fine; mass f-string rewrite risks subtle breakage
+    "B007",   # unused loop variable (harmless in research/plotting loops)
+    "E741",   # ambiguous variable names (l, I, ...) used a lot in the maths
+]
+
+[lint.per-file-ignores]
+"__init__.py" = ["F401"]   # re-exports
+"examples/*" = ["E402"]    # imports after config blocks in example scripts

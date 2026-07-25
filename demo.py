@@ -7,6 +7,7 @@ source vs class information. A naive nearest-class-prototype classifier in the r
 space is confused by the domain shift; T-GMLVQ learns Omega to separate the
 sources and classifies in Omega's null-space, recovering the class structure.
 """
+
 import argparse
 
 import numpy as np
@@ -17,24 +18,25 @@ from transfer_gmlvq import TransferGMLVQ
 
 def make_multisource(n_per=300, seed=0):
     rng = np.random.default_rng(seed)
-    n = 6                                   # ambient dimension
+    n = 6  # ambient dimension
     Xs, Yc, Ys = [], [], []
-    class_centers = np.array([[-2.0, 0.0], [2.0, 0.0]])      # 2 classes in dims 0,1
-    source_shift = np.array([6.0, -6.0])                     # per-source offset magnitude
-    for s in range(2):                      # 2 sources
-        for c in range(2):                  # 2 classes
+    class_centers = np.array([[-2.0, 0.0], [2.0, 0.0]])  # 2 classes in dims 0,1
+    source_shift = np.array([6.0, -6.0])  # per-source offset magnitude
+    for s in range(2):  # 2 sources
+        for c in range(2):  # 2 classes
             pts = rng.normal(size=(n_per, n)) * 0.6
-            pts[:, :2] += class_centers[c]           # class signal (dims 0,1)
-            pts[:, 2] += source_shift[s]             # source-specific shift (dim 2)
-            pts[:, 3] += source_shift[s] * 0.5       # and dim 3
-            Xs.append(pts); Yc += [c] * n_per; Ys += [s] * n_per
+            pts[:, :2] += class_centers[c]  # class signal (dims 0,1)
+            pts[:, 2] += source_shift[s]  # source-specific shift (dim 2)
+            pts[:, 3] += source_shift[s] * 0.5  # and dim 3
+            Xs.append(pts)
+            Yc += [c] * n_per
+            Ys += [s] * n_per
     X = np.concatenate(Xs, 0)
     # mix dimensions with a fixed random rotation so axes are not privileged
     Q, _ = np.linalg.qr(rng.normal(size=(n, n)))
     X = X @ Q
     X = (X - X.mean(0)) / X.std(0)
-    return (torch.tensor(X, dtype=torch.float32),
-            torch.tensor(Yc), torch.tensor(Ys))
+    return (torch.tensor(X, dtype=torch.float32), torch.tensor(Yc), torch.tensor(Ys))
 
 
 def accuracy(pred, y):
@@ -53,8 +55,9 @@ def main():
     X, Yc, Ys = make_multisource(seed=args.seed)
     n = X.shape[1]
 
-    model = TransferGMLVQ(n_features=n, mapping_dim=args.m, n_classes=2,
-                          n_sources=2, ppc=1, pps=1, seed=args.seed)
+    model = TransferGMLVQ(
+        n_features=n, mapping_dim=args.m, n_classes=2, n_sources=2, ppc=1, pps=1, seed=args.seed
+    )
     opt = torch.optim.Adam(model.parameters(), lr=args.lr)
 
     for epoch in range(args.epochs):
@@ -64,7 +67,7 @@ def main():
         loss = model.loss(X, Yc, Ys, alpha=alpha)
         loss.backward()
         opt.step()
-        model.orthogonalize_()              # keep Omega sub-orthogonal
+        model.orthogonalize_()  # keep Omega sub-orthogonal
 
     # evaluation
     class_acc = accuracy(model.predict(X), Yc)
