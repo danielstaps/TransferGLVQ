@@ -1,7 +1,7 @@
 # T-GMLVQ (PyTorch) — null-space transfer classification learning
 
 [![Paper](https://img.shields.io/badge/paper-IDA%202022-blue)](https://doi.org/10.1007/978-3-031-01333-1_28)
-<!-- After a Zenodo release, add the software DOI badge here: [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.XXXXXX.svg)](https://doi.org/10.5281/zenodo.XXXXXX) -->
+[![DOI](https://zenodo.org/badge/522904756.svg)](https://doi.org/10.5281/zenodo.21573214)
 
 A clean **PyTorch** reimplementation of Transfer-GMLVQ (T-GMLVQ) from:
 

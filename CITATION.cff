@@ -5,6 +5,7 @@ abstract: >-
   PyTorch reimplementation of Transfer-GMLVQ (T-GMLVQ), a siamese-like GMLVQ for classification
   from multiple sources using null-space evaluation of a shared sub-orthogonal mapping.
 type: software
+doi: "10.5281/zenodo.21573214"
 authors:
   - family-names: Staps
     given-names: Daniel
